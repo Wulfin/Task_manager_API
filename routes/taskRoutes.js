@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
+const taskController = require('../controllers/taskController');
 
-// Inscription d'un utilisateur
-router.post('/signup', authController.signup);
+// Créer une tâche
+router.post('/create', taskController.createTask);
 
-// Connexion d'un utilisateur
-router.post('/login', authController.login);
+// Obtenir toutes les tâches
+router.get('/getall', taskController.getTasks);
 
-// Déconnexion d'un utilisateur
-router.post('/logout', authController.logout);
+// Obtenir une tâche par ID
+router.get('/get/:title', taskController.getTask);
+
+// Mettre à jour une tâche
+router.put('/update/:title', taskController.updateTask);
+
+// Supprimer une tâche
+router.delete('/delete/:title', taskController.deleteTask);
+
+router.get('/complete/:title', taskController.markTaskAsCompletedOrUncompleted);
 
 module.exports = router;

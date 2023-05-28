@@ -14,14 +14,13 @@ app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost/task-manager', {
+mongoose.connect('mongodb://localhost:27017/mydb', {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+    useUnifiedTopology: true
 })
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
+
 
 // Start the server
 const port = process.env.PORT || 3000;

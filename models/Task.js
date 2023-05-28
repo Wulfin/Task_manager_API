@@ -4,6 +4,7 @@ const taskSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -18,8 +19,8 @@ const taskSchema = new mongoose.Schema({
     default: false,
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String, // Change the type to String to store the username
+    required: true,
   },
 },
 {

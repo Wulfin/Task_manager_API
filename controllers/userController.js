@@ -29,9 +29,9 @@ exports.getUsers = async (req, res) => {
 };
 
 // Récupérer un utilisateur par ID
-exports.getUserById = async (req, res) => {
+exports.getUserByUsername = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findOne({ username: req.params.username });
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -42,12 +42,13 @@ exports.getUserById = async (req, res) => {
     }
 };
 
+
 // Mettre à jour un utilisateur
 exports.updateUser = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id,
+        const updatedUser = await User.findOneAndUpdate(
+            { username: req.params.username },
             { username, password },
             { new: true }
         );
@@ -61,10 +62,11 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// Supprimer un utilisateur
 exports.deleteUser = async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndRemove(req.params.id);
+        const deletedUser = await User.findOneAndRemove({
+            username: req.params.username,
+        });
         if (!deletedUser) {
             return res.status(404).send('User not found');
         }
